@@ -35,9 +35,9 @@ Index: FireWatir/unittests/links_xpath_test.rb
  
 +    def test_element_by_xpath_class
 +        element = $ff.element_by_xpath("//a[contains(., /miss/)]")
-+        assert(element.instance_of?(Link),"element class should be #{Link}; got #{element.class}")
++        assert_nil(element)
 +        element = $ff.element_by_xpath("//a[contains(.,'missing')]")
-+        assert(element.instance_of?(Link),"element class should be #{Link}; got #{element.class}")
++        assert_nil(element)
 +        element = $ff.element_by_xpath("//a[contains(., /TEST/i)]")
 +        assert(element.instance_of?(Link),"element class should be #{Link}; got #{element.class}")
 +        element = $ff.element_by_xpath("//a[contains(.,'test1')]")
@@ -117,7 +117,7 @@ Index: FireWatir/unittests/checkbox_xpath_test.rb
 +      element = $ff.element_by_xpath("//input[@name='box4' and @value='1']")
 +      assert(element.instance_of?(CheckBox),"element class should be #{CheckBox}; got #{element.class}")
 +      element = $ff.element_by_xpath("//input[@name='box4' and @value='22']")
-+      assert(element.instance_of?(CheckBox),"element class should be #{CheckBox}; got #{element.class}")
++      assert_nil(element)
 +
 +    end
 +
@@ -128,7 +128,7 @@ Index: FireWatir/unittests/table_xpath_test.rb
 ===================================================================
 --- FireWatir/unittests/table_xpath_test.rb	(revisão 110)
 +++ FireWatir/unittests/table_xpath_test.rb	(cópia de trabalho)
-@@ -13,10 +13,18 @@
+@@ -13,10 +13,16 @@
    
    def test_Table_Exists
      assert(!$ff.table(:xpath , "//table[@id = 'missingTable']").exists?)
@@ -139,10 +139,8 @@ Index: FireWatir/unittests/table_xpath_test.rb
 +  def test_element_by_xpath_class
 +    element = $ff.element_by_xpath("//table[@id = 't1']")
 +    assert(element.instance_of?(Table),"element class should be #{Table}; got #{element.class}")
-+    # FIXME really bizarre: this one should be a Table, but 
-+    # Firefox.element_factory gets HTMLAnchorElement as input
 +    element = $ff.element_by_xpath("//table[@id = 'missingTable']")
-+    assert(element.instance_of?(Table),"element class should be #{Table}; got #{element.class}")
++    assert_nil(element)
 +  end
 +  
    def test_rows
@@ -161,10 +159,10 @@ Index: FireWatir/unittests/selectbox_xpath_test.rb
 +      assert(element.instance_of?(SelectList),"element class should be #{SelectList}; got #{element.class}")
 +      # FIXME got HTMLAnchorElement, should've gotten HTMLSelectElement
 +      element = $ff.element_by_xpath("//select[@name='missing']")
-+      assert(element.instance_of?(SelectList),"element class should be #{SelectList}; got #{element.class}")
++      assert_nil(element)
 +      # FIXME got HTMLAnchorElement, should've gotten HTMLSelectElement
 +      element = $ff.element_by_xpath("//select[@id='missing']")
-+      assert(element.instance_of?(SelectList),"element class should be #{SelectList}; got #{element.class}")
++      assert_nil(element)
 +    end
 +
      def test_select_list_enabled
@@ -276,11 +274,11 @@ Index: FireWatir/unittests/buttons_xpath_test.rb
 +      element = $ff.element_by_xpath("//input[@id='b2']")
 +      assert(element.instance_of?(Button),"element class should be #{Button}; got #{element.class}")
 +      element = $ff.element_by_xpath("//input[@value='Missing Caption']")
-+      assert(element.instance_of?(Button),"element class should be #{Button}; got #{element.class}")
++      assert_nil(element)
 +      element = $ff.element_by_xpath("//input[@name='missingname']")
-+      assert(element.instance_of?(Button),"element class should be #{Button}; got #{element.class}")
++      assert_nil(element)
 +      element = $ff.element_by_xpath("//input[@id='missingid']")
-+      assert(element.instance_of?(Button),"element class should be #{Button}; got #{element.class}")
++      assert_nil(element)
 +    end
 +    
      def test_Button_Enabled
@@ -341,13 +339,13 @@ Index: FireWatir/unittests/images_xpath_test.rb
 +    def test_element_by_xpath_class
 +      # FIXME getting HTMLAnchorElement instead of HTMLImageElement
 +      element = $ff.element_by_xpath("//img[@name='missing_name']")
-+      assert(element.instance_of?(Image),"element class should be #{Image}; got #{element.class}")
++      assert_nil(element)
 +      element = $ff.element_by_xpath("//img[@name='circle']")
 +      assert(element.instance_of?(Image),"element class should be #{Image}; got #{element.class}")
 +      element = $ff.element_by_xpath("//img[contains(@name , 'circ')]")
 +      assert(element.instance_of?(Image),"element class should be #{Image}; got #{element.class}")
 +      element = $ff.element_by_xpath("//img[@id='missing_id']")
-+      assert(element.instance_of?(Image),"element class should be #{Image}; got #{element.class}")
++      assert_nil(element)
 +      element = $ff.element_by_xpath("//img[@id='square']")
 +      assert(element.instance_of?(Image),"element class should be #{Image}; got #{element.class}")
 +      element = $ff.element_by_xpath("//img[contains(@id, 'squ')]")
@@ -357,7 +355,7 @@ Index: FireWatir/unittests/images_xpath_test.rb
 +      element = $ff.element_by_xpath("//img[contains(@alt , 'cir')]")
 +      assert(element.instance_of?(Image),"element class should be #{Image}; got #{element.class}")
 +      element = $ff.element_by_xpath("//img[contains(@alt , 'tri')]")
-+      assert(element.instance_of?(Image),"element class should be #{Image}; got #{element.class}")
++      assert_nil(element)
 +    end
 +    
      def test_image_click
@@ -511,14 +509,16 @@ Index: FireWatir/firewatir.rb
              end       
              
              set_defaults()
-@@ -661,9 +667,84 @@
+@@ -661,9 +667,91 @@
          def element_by_xpath(xpath)
              temp = Element.new(nil, self)
              element_name = temp.element_by_xpath(self, xpath)
 -            return Element.new(element_name, self)
-+            return element_factory(element_name)
++
++            element_name != nil ? element_factory(element_name) : nil
          end
  
++        # TODO rdoc this
 +       def element_factory(element_name) 
 +           jssh_type = Element.new(element_name,self).element_type
 +           puts jssh_type # DEBUG
@@ -547,7 +547,9 @@ Index: FireWatir/firewatir.rb
 +               klass.new(self,:jssh_name,element_name)
 +           end
 +       end
++       private :element_factory
 +
++       # TODO rdoc this
 +       def input_class(input_type)
 +           hash = {
 +               'select-one' => 'SelectList',
@@ -564,11 +566,13 @@ Index: FireWatir/firewatir.rb
 +               'submit' => 'Button',
 +               'image' => 'Button'
 +           }
-+           hash.default = 'Element'
++           hash.default = 'TextField'
 +
 +           hash[input_type]
 +       end
++       private :input_class
 +
++       # TODO rdoc this
 +       def jssh2firewatir(candidate_class)
 +           hash = {
 +              'Div' => 'Div',
@@ -593,11 +597,12 @@ Index: FireWatir/firewatir.rb
 +
 +           hash[candidate_class]
 +       end
++       private :jssh2firewatir
 +
          #
          # Description:
          #   Returns the array of elements that matches the xpath query.
-@@ -676,7 +757,8 @@
+@@ -676,7 +764,8 @@
          #
          def elements_by_xpath(xpath)
              element = Element.new(nil, self)
@@ -607,7 +612,7 @@ Index: FireWatir/firewatir.rb
          end
  
      end # Class Firefox
-@@ -721,3 +803,5 @@
+@@ -721,3 +810,5 @@
      end       
  
  end
