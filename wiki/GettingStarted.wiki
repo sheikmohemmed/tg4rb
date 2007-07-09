@@ -5,12 +5,12 @@
 
 *tg4w* is a _translator_, so it sits logically between two other pieces of software, translating the output from one into the input of the other. These two pieces of software are:
 
-  # TestGen4Web
-    This is the Firefox extension that allows you to record your actions on the browser. You press the "Record" button, go around clicking links, buttons and filling forms, press "Stop", and you end up with a XML file that describes what you just did. This XML file is what *tg4w* takes as input.
+  * *!TestGen4Web*
+   This is the Firefox extension that allows you to record your actions on the browser. You press the "Record" button, go around clicking links, buttons and filling forms, press "Stop", and you end up with a XML file that describes what you just did. This XML file is what *tg4w* takes as input.
 
-  # FireWatir
-    This is a library for Ruby that allows you to control an instance of Firefox with code like `ff.text_field(:name,"q").set("ruby")`.
-    As it's not a program _per se_, we don't actually give it _input_. We write code that uses its classes and methods to reproduce the actions we recorded with !TestGen4Web. That code is what *tg4w* outputs.
+  * *!FireWatir*
+   This is a library for Ruby that allows you to control an instance of Firefox with code like `ff.text_field(:name,"q").set("ruby")`.
+   As it's not a program _per se_, we don't actually give it _input_. We write code that uses its classes and methods to reproduce the actions we recorded with !TestGen4Web. That code is what *tg4w* outputs.
 
 So the first thing we need is to get those two working. As tg4w required a few changes from both !TestGen4Web and !FireWatir, and those aren't yet present in current releases, we'll have to patch things up from svn.
 
@@ -55,10 +55,37 @@ This part now done, we need to get !FireWatir.
 
 = FireWatir from SVN =
 
-(in the works...)
+This is a bit more straightforward. Check out the code from svn into a directory of your choice:
+
+{{{
+cd ~/work
+svn checkout http://firewatir.googlecode.com/svn/trunk/ firewatir
+}}}
+
+Get the patch and apply it:
+
+{{{
+cd ~/work/firewatir
+wget http://tg4rb.googlecode.com/svn/trunk/firewatir_patch.txt
+patch -p0 < firewatir_patch.txt
+}}}
+
+Now we build the gem again and install it:
+
+{{{
+cd ~/work/firewatir/FireWatir
+gem build firewatir.gemspec
+sudo gem install firewatir-1.0.2
+}}}
+
+And that's it. The foundations are laid, now let's get to *tg4rb* itself.
 
 
+= tg4rb: using the gem =
 
+TODO
 
+= tg4rb: from SVN =
 
+TODO
 
