@@ -1,7 +1,7 @@
 #summary howto get things up and running
 #labels Featured,Phase-Deploy,Phase-Requirements
 
-= Introduction =
+= What are we dealing with here? =
 
 *tg4w* is a _translator_, so it sits logically between two other pieces of software, translating the output from one into the input of the other. These two pieces of software are:
 
@@ -12,11 +12,11 @@
    This is a library for Ruby that allows you to control an instance of Firefox with code like `ff.text_field(:name,"q").set("ruby")`.
    As it's not a program _per se_, we don't actually give it _input_. We write code that uses its classes and methods to reproduce the actions we recorded with !TestGen4Web. That code is what *tg4w* outputs.
 
-So the first thing we need is to get those two working. As tg4w required a few changes from both !TestGen4Web and !FireWatir, and those aren't yet present in current releases, we'll have to patch things up from svn.
+So the first thing we need is to get those two working. As tg4w required a few changes from both !TestGen4Web and !FireWatir, and those aren't yet present in current releases, *we'll have to patch things up from svn*.
 
 = TestGen4Web from SVN =
 
-We first need to install the current release (there must be a better way of doing this, but this works). Go to 
+Yes, this is "from svn", *but first we need to install the _current_ release and _then_ replace it by the code from svn* (there must be a better way of doing this, but this works). Go to 
 
 http://developer.spikesource.com/frs/?group_id=14&release_id=71
 
@@ -103,6 +103,7 @@ TODO
 = What now? =
 
 You've got everything installed, so [ExampleOne go do your first example]!
+
 
 
 
