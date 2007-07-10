@@ -81,11 +81,28 @@ sudo gem install firewatir-1.0.2
 And that's it. The foundations are laid, now let's get to *tg4rb* itself.
 
 
-= tg4rb: using the gem =
+= tg4rb: from Gem =
 
-TODO
+Dead simple:
+
+`sudo gem install tg4rb`
+
+If RubyForge doesn't have it up yet, or if you need to install it in your cottage in the woods with no internet access, you can download it from:
+
+http://tg4rb.googlecode.com/files/tg4rb-0.0.1.gem
+
+and then run:
+
+`sudo gem install path-to-file`
+
 
 = tg4rb: from SVN =
 
 TODO
+
+= What now? =
+
+You've got everything installed, so [ExampleOne go do your first example]!
+
+
 
