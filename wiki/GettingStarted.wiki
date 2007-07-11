@@ -12,39 +12,21 @@
    This is a library for Ruby that allows you to control an instance of Firefox with code like `ff.text_field(:name,"q").set("ruby")`.
    As it's not a program _per se_, we don't actually give it _input_. We write code that uses its classes and methods to reproduce the actions we recorded with !TestGen4Web. That code is what *tg4w* outputs.
 
-So the first thing we need is to get those two working. As tg4w required a few changes from both !TestGen4Web and !FireWatir, and those aren't yet present in current releases, *we'll have to patch things up from svn*.
+So the first thing we need is to get those two working. As tg4w required a few changes from both !TestGen4Web and !FireWatir, and those aren't yet present in current releases, *we'll have to patch things up from svn* _(for !FireWatir, you can wait for version 1.1 which is just around the corner)_.
 
-= TestGen4Web from SVN =
+= Patching TestGen4Web =
 
-Yes, this is "from svn", *but first we need to install the _current_ release and _then_ replace it by the code from svn* (there must be a better way of doing this, but this works). Go to 
+First we need to install the current release of the extension. Go to:
 
 http://developer.spikesource.com/frs/?group_id=14&release_id=71
 
 download and install the latest version (0.41.1-beta). This will create a directory `{3c20433a-61bc-42fe-831d-415860e17283}` under `~/.mozilla/firefox/vllrmpro.default/extensions` (or wherever else your firefox extensions are kept).
 
-Now we have to replace this directory by the !TestGen4Web code from SVN.
-
-Choose a directory where you want to keep that code and check it out from SVN (mine is `~work/`):
-{{{
-cd ~/work
-svn co http://scm.spikesource.com/testgen4web
-}}}
-
-This will create a "testgen4web" directory in the chosen directory. Now we *replace* the old directory by a link to our checked out code:
+Enter that directory, download the patch and apply it:
 
 {{{
-cd ~/.mozilla/firefox/vllrmpro.default/extensions
-rm \{3c20433a-61bc-42fe-831d-415860e17283\} -f
-ln -s ~/work/testgen4web/extension \{3c20433a-61bc-42fe-831d-415860e17283\}
-}}}
-
-[If you're on Windows, emptying out the original directory and copying the contents of testgen4web/extension/ into it should work]
-
-Done, right? No. We still need to download and apply the patch. Download it from http://tg4rb.googlecode.com/svn/trunk/tg4w_patch.txt and place it into testgen4web/extension before applying it.
-
-{{{
-cd ~/work/testgen4web/extension
-wget http://tg4rb.googlecode.com/svn/trunk/tg4w_patch.txt
+cd ~/.mozilla/firefox/vllrmpro.default/extensions/\{3c20433a-61bc-42fe-831d-415860e17283\}
+wget http://tg4rb.googlecode.com/svn/trunk/tg4w_release_patch.txt
 patch -p0 < tg4w_patch.txt
 }}}
 
@@ -55,7 +37,7 @@ This part now done, we need to get !FireWatir.
 
 = FireWatir from SVN =
 
-This is a bit more straightforward. Check out the code from svn into a directory of your choice:
+*If you have !FireWatir >= 1.1, you don't need this*. Else, check out the code from svn into a directory of your choice:
 
 {{{
 cd ~/work
@@ -103,7 +85,3 @@ TODO
 = What now? =
 
 You've got everything installed, so [ExampleOne go do your first example]!
-
-
-
-
