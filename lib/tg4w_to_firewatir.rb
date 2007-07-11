@@ -8,9 +8,9 @@ class Tg4wToFirewatir < Tg4wHandler
     @output = <<-end
       require 'rubygems'
       require 'firewatir'
-      require 'firewatirgen'
+      require 'tg4rb'
       include FireWatir
-      include FireWatirGen
+      include Tg4rbToolbox
       @ff = Firefox.new
     end
 
@@ -66,35 +66,4 @@ class Tg4wToFirewatir < Tg4wHandler
 
 end
 
-if $0 == __FILE__
-
-  if ARGV.length != 1
-    puts "Wrong number of arguments. Use: program <xml_file>"
-    exit
-  end
-
-  xml_file = File.expand_path(ARGV[0])
-  # dumb check
-  if xml_file.split('.')[-1] != 'xml'
-    puts "Not a .xml file"
-    exit
-  end
-
-  rb_file = xml_file.split('.')[0..-2].join('.') << '.rb'
-  if File.exists? rb_file
-    puts "File #{rb_file} exists. \nOverwrite it? (y/N)"
-    # need to make STDIN explicit because there's a filename in the
-    # command-line argument (gets defaults to reading from it)
-    if STDIN.gets.strip == 'y'
-      File.delete(rb_file)
-    else
-      exit(true)
-    end
-  end
-
-  doc = Document.new(File.read(xml_file))
-  actions = Tg4wToFirewatir.parse_xml(doc)
-  translator = Tg4wToFirewatir.new(actions)
-  File.open(rb_file,'w') {|f| f << translator.translate}
-end
 
