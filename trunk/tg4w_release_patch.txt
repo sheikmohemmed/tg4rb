@@ -1,0 +1,17 @@
+Index: chrome/recorder/content/findobject.js
+299c299,300
+<             if (obj.type == "button" || obj.type == "submit" || obj.type == "radio" || obj.type == "image" || obj.type == "file") {
+---
+>             if (obj.type == "button" || obj.type == "submit" || obj.type == "radio" || obj.type == "image" || obj.type == "file" || obj.type == "reset") {
+> 
+307c308
+<                 if (obj.type != "file") {
+---
+> 		if (obj.type != "file" && obj.hasAttribute("value")) {
+Index: chrome/recorder/content/recorder.js
+1248c1248,1249
+<         if (eTarget.type == "button" || eTarget.type == "submit" || eTarget.type == "radio" || eTarget.type == "image") {
+---
+>         if (eTarget.type == "button" || eTarget.type == "submit" || eTarget.type == "radio" || eTarget.type == "image" || eTarget.type == "reset") {
+> 
+Only in ./: patch

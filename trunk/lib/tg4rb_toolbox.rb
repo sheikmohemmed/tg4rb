@@ -1,4 +1,4 @@
-module FireWatirGen
+module Tg4rbToolbox
   def element_by_least_restrictive_xpath(xpath)
     puts '## full xpath:'
     puts xpath
