@@ -1,0 +1,8 @@
+== 0.0.2 / 2007-07-09
+* fixed silly import problem on generated script
+
+== 0.0.1 / 2007-07-09
+
+* 1 major enhancement
+  * Birthday!
+
