@@ -8,7 +8,7 @@ class Tg4wToFirewatir < Tg4wHandler
     @output = <<-end
       require 'rubygems'
       require 'firewatir'
-      require 'tg4rb'
+      require 'tg4rb_toolbox'
       include FireWatir
       include Tg4rbToolbox
       @ff = Firefox.new
