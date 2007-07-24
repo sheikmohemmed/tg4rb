@@ -1,0 +1,5 @@
+== Future Work ==
+
+ # Support for accessing elements using their text, currently if elements has ID or name then only it can be recorded.
+ # Provide support for !JavaScript pop ups
+ # Provide support for Windows pop ups
