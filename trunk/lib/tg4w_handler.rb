@@ -77,7 +77,7 @@ class Tg4wHandler
       a.attributes.each {|name,value| hash[name] = value} 
       # expecting xpath and value cdatas
       a.elements.each {|e| hash[e.name] = e.text.strip}
-      hash['xpath'] = fix_xpath(hash['xpath'])
+      hash['xpath'] = escape(fix_xpath(hash['xpath']))
       hash['value'] = escape(hash['value'])
       actions << hash
     end

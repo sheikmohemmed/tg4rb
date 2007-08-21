@@ -14,7 +14,7 @@ reproduce the actions recorded with TestGen4Web.
   
 * takes an XML with actions from tg4w and outputs stand-alone Ruby code that can be run directly or embedded into existing code (e.g. for test automation).
 * can be used as a library or as an executable script.
-* takes the xpath from tg4w and uses only enough info to guarantee the uniqueness of the referenced element, allowing the generated script to keep working even with some change on page structure.
+* takes the xpath from tg4w and uses only enough info to guarantee the uniqueness of the referenced element, allowing the generated script to keep working even with some change to page structure.
 
 == PROBLEMS:
 
@@ -37,6 +37,7 @@ reproduce the actions recorded with TestGen4Web.
 * hoe
 * rubyforge
 * rake
+* hpricot
 
 == INSTALL:
 

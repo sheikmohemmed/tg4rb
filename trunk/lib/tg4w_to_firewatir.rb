@@ -18,7 +18,7 @@ class Tg4wToFirewatir < Tg4wHandler
 
   def parse_fill(action)
     @output << <<-end
-      element_by_least_restrictive_xpath('#{action['xpath']}').set('#{action['value']}')
+      element('#{action['xpath']}').set('#{action['value']}')
     end
   end
 
@@ -38,7 +38,7 @@ class Tg4wToFirewatir < Tg4wHandler
 
   def parse_click(action)
     @output << <<-end
-      element_by_least_restrictive_xpath('#{action['xpath']}').click
+      element('#{action['xpath']}').click
     end
   end
 
@@ -47,11 +47,11 @@ class Tg4wToFirewatir < Tg4wHandler
     # it does not respond to set()
     if action['value'] == 'true'
       @output << <<-end
-        element_by_least_restrictive_xpath('#{action['xpath']}').set
+        element('#{action['xpath']}').set
       end
     elsif action['value'] == 'false'
       @output << <<-end
-        element_by_least_restrictive_xpath('#{action['xpath']}').clear
+        element('#{action['xpath']}').clear
       end
     end
   end
@@ -60,7 +60,7 @@ class Tg4wToFirewatir < Tg4wHandler
     # FIXME element_by_xpath() doesn't return it as SelectList, therefore
     # it does not respond to select_value()
     @output << <<-end
-      element_by_least_restrictive_xpath('#{action['xpath']}').select_value('#{action['value']}')
+      element('#{action['xpath']}').select_value('#{action['value']}')
     end
   end
 
