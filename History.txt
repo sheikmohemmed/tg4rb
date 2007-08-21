@@ -1,3 +1,10 @@
+== 1.0.0 / 2007-08-21
+* NOTE: This version breaks compatibility with previous version!
+* fixed small bug with escaping single quotes
+* API change: changed the visibility of element_by_least_restrictive_xpath in Tg4rbToolbox to private
+* API change: created public method element() in Tg4rbToolbox
+* provided workaround for bug in xpath from tg4w: now clicks on links work with the link's text (requires HPricot)
+
 == 0.0.2 / 2007-07-09
 * fixed silly import problem on generated script
 
