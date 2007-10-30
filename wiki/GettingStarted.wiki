@@ -71,7 +71,7 @@ Dead simple:
 
 If RubyForge doesn't have it up yet, or if you need to install it in your cottage in the woods with no internet access, you can download it from:
 
-http://tg4rb.googlecode.com/files/tg4rb-0.0.1.gem
+http://tg4rb.googlecode.com/files/tg4rb-1.0.0.gem
 
 and then run:
 
