@@ -1,0 +1,39 @@
+Index: FireWatir/firewatir.rb
+===================================================================
+--- FireWatir/firewatir.rb	(revision 123)
++++ FireWatir/firewatir.rb	(working copy)
+@@ -820,7 +820,6 @@
+                 'text' => 'TextField',
+                 'password' => 'TextField',
+                 'textarea' => 'TextField',
+-                # TODO when there's no type, it's a TextField
+                 'file' => 'FileField',
+                 'checkbox' => 'CheckBox',
+                 'radio' => 'Radio',
+@@ -829,7 +828,7 @@
+                 'submit' => 'Button',
+                 'image' => 'Button'
+             }
+-            hash.default = 'Element'
++            hash.default = 'TextField'
+  
+             hash[input_type]
+         end
+@@ -844,6 +843,7 @@
+                 'Div' => 'Div',
+                 'Button' => 'Button',
+                 'Frame' => 'Frame',
++                'IFrame' => 'Frame',
+                 'Span' => 'Span',
+                 'Paragraph' => 'P',
+                 'Label' => 'Label',
+@@ -854,7 +854,8 @@
+                 'TableRow' => 'TableRow',
+                 'Select' => 'SelectList',
+                 'Link' => 'Link',
+-                'Anchor' => 'Link' # FIXME is this right?
++                'Anchor' => 'Link',
++                'TextArea' => 'TextField'
+                 #'Option' => 'Option' #Option uses a different constructor
+             }
+             hash.default = 'Element'

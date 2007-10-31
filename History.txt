@@ -1,5 +1,8 @@
+== 1.0.1 / 2007-10-30
+* Fixed n00b bug: missing /bin/tb4rb
+
 == 1.0.0 / 2007-08-21
-* NOTE: This version breaks compatibility with previous version!
+* NOTE: This version breaks compatibility with previous version! Scripts written in previous versions won't work.
 * fixed small bug with escaping single quotes
 * API change: changed the visibility of element_by_least_restrictive_xpath in Tg4rbToolbox to private
 * API change: created public method element() in Tg4rbToolbox
